@@ -1,65 +1,122 @@
-Level 1: The Foundation (MVP)
-Goal: Users can register, venue owners can list properties, and users can make a simple booking. Focus on: Basic CRUD (Create, Read, Update, Delete) and Authentication.
+# Event Management System API 📅
 
-1. Auth & Users (Basic)
-Method	Endpoint	Function
-POST	/auth/register	Register User/Owner
-POST	/auth/login	Login (Get JWT)
-GET	/users/me	Get own profile
-2. Venues (Basic Listing)
-Method	Endpoint	Function
-POST	/venues	Create a Venue (Name, Location, Price)
-GET	/venues	List all venues (Simple list)
-GET	/venues/:id	Get Venue Details
-PATCH	/venues/:id	Update Venue
-3. Bookings (The Core Transaction)
-Method	Endpoint	Function
-POST	/bookings	Book a venue (Date, Guest Count)
-GET	/bookings/my-bookings	User sees their history
-GET	/bookings/venue/:venueId	Owner sees who booked their venue
-PATCH	/bookings/:id/status	Owner Accepts/Rejects booking
-Level 2: The "Real World" Features
-Goal: Handle the complexity of dates, images, and specific requirements (Menus/Packages). Focus on: Logic, Validation, and Media.
+A comprehensive API roadmap for the Banquet & Party Palace Booking System built with **NestJS**.
 
-4. File Uploads (Images)
-You cannot sell a venue without photos.
+## 📌 Project Roadmap
+The development is divided into **3 Levels** of complexity.
 
-Method	Endpoint	Function
-POST	/uploads/venue-images	Upload venue gallery images
-POST	/uploads/avatar	Upload user profile picture
-5. Calendar & Availability (Crucial)
-Prevent double bookings.
+- [ ] **Level 1:** Foundation (MVP) - Auth, Basic Listing, Booking.
+- [ ] **Level 2:** Real World Features - Images, Calendar, Packages.
+- [ ] **Level 3:** Production Ready - Notifications, Reviews, Admin Dashboard.
 
-Method	Endpoint	Function
-GET	/calendar/:venueId	Get booked/blocked dates for UI
-POST	/calendar/block	Owner manually blocks dates (e.g., maintenance)
-GET	/calendar/check	API check: Is date X available?
-6. Packages & Menus
-Users usually book a "Gold Package" or "Buffet".
+---
 
-Method	Endpoint	Function
-POST	/venues/:id/packages	Create Menu/Package (e.g., "Wedding Set")
-GET	/venues/:id/packages	List packages for a venue
-7. Advanced Search
-Method	Endpoint	Function
-GET	/venues/search	Filter by Date, Guests, Price Range, Location
-Level 3: The Official & Admin Layer
-Goal: Trust, Communication, and Platform Management. Focus on: Polish, Security, and Admin Control.
+## 🟢 Level 1: Foundation (MVP)
+*Goal: Core functionality. Users can register, owners can list basic text details, and booking works.*
 
-8. Notifications
-Method	Endpoint	Function
-GET	/notifications	List alerts (e.g., "Booking Approved")
-PATCH	/notifications/read	Mark as read
-9. Reviews & Ratings
-Method	Endpoint	Function
-POST	/reviews	Rate a venue (Only after booking is completed)
-GET	/reviews/venue/:id	Show reviews to public
-POST	/reviews/:id/reply	Owner replies to bad reviews
-10. Super Admin Dashboard
-Control the platform.
+### 🔐 Auth Module
+| Status | Method | Endpoint | Description | Access |
+| :--- | :--- | :--- | :--- | :--- |
+| ⬜ | `POST` | `/auth/register` | Register User or Venue Owner | Public |
+| ⬜ | `POST` | `/auth/login` | Login (Returns JWT) | Public |
+| ⬜ | `GET` | `/users/me` | Get current profile details | Auth |
 
-Method	Endpoint	Function
-GET	/admin/stats	Revenue & User counts
-GET	/admin/venues/pending	See venues waiting for approval
-PATCH	/admin/venues/:id/verify	Approve a venue (Give it a "Verified" badge)
-PATCH	/admin/users/:id/ban	Ban a fraudulent user
+### 🏢 Venues Module (Basic)
+| Status | Method | Endpoint | Description | Access |
+| :--- | :--- | :--- | :--- | :--- |
+| ⬜ | `POST` | `/venues` | Create a new Venue (Name, Loc, Price) | Owner |
+| ⬜ | `GET` | `/venues` | List all venues (Simple list) | Public |
+| ⬜ | `GET` | `/venues/:id` | Get specific venue details | Public |
+| ⬜ | `PATCH` | `/venues/:id` | Update basic venue info | Owner |
+
+### 📅 Booking Module (Transactional)
+| Status | Method | Endpoint | Description | Access |
+| :--- | :--- | :--- | :--- | :--- |
+| ⬜ | `POST` | `/bookings` | Create a booking (Date, Guest Count) | User |
+| ⬜ | `GET` | `/bookings/my-bookings` | User booking history | User |
+| ⬜ | `GET` | `/bookings/venue/:venueId` | Owner sees bookings for their venue | Owner |
+| ⬜ | `PATCH` | `/bookings/:id/status` | Owner approves/rejects booking | Owner |
+
+---
+
+## 🟡 Level 2: Advanced Features
+*Goal: Handle complexity. File uploads, calendar blocking logic, and search filters.*
+
+### 📂 File Uploads
+| Status | Method | Endpoint | Description | Access |
+| :--- | :--- | :--- | :--- | :--- |
+| ⬜ | `POST` | `/uploads/venue-images` | Upload venue gallery images | Owner |
+| ⬜ | `POST` | `/uploads/avatar` | Upload profile picture | Auth |
+
+### 📆 Calendar & Availability
+| Status | Method | Endpoint | Description | Access |
+| :--- | :--- | :--- | :--- | :--- |
+| ⬜ | `GET` | `/calendar/:venueId` | Get booked/blocked dates | Public |
+| ⬜ | `POST` | `/calendar/block` | Owner manually blocks dates | Owner |
+| ⬜ | `DELETE` | `/calendar/block/:id` | Unblock a date | Owner |
+| ⬜ | `GET` | `/calendar/check` | Check if a specific date is free | Public |
+
+### 🍽️ Packages & Menus
+| Status | Method | Endpoint | Description | Access |
+| :--- | :--- | :--- | :--- | :--- |
+| ⬜ | `POST` | `/venues/:id/packages` | Create package (e.g. "Gold Menu") | Owner |
+| ⬜ | `GET` | `/venues/:id/packages` | List packages for a venue | Public |
+| ⬜ | `DELETE` | `/packages/:id` | Remove a package | Owner |
+
+### 🔍 Advanced Search
+| Status | Method | Endpoint | Description | Access |
+| :--- | :--- | :--- | :--- | :--- |
+| ⬜ | `GET` | `/venues/search` | Filter: `?date=X&guests=Y&price=Z` | Public |
+
+---
+
+## 🔴 Level 3: Official & Admin
+*Goal: Platform management, social proof, and polish.*
+
+### 🔔 Notifications
+| Status | Method | Endpoint | Description | Access |
+| :--- | :--- | :--- | :--- | :--- |
+| ⬜ | `GET` | `/notifications` | Get list of notifications | Auth |
+| ⬜ | `PATCH` | `/notifications/read` | Mark notification as read | Auth |
+
+### ⭐ Reviews
+| Status | Method | Endpoint | Description | Access |
+| :--- | :--- | :--- | :--- | :--- |
+| ⬜ | `POST` | `/reviews` | Write review (After booking done) | User |
+| ⬜ | `GET` | `/reviews/venue/:id` | List public reviews | Public |
+| ⬜ | `POST` | `/reviews/:id/reply` | Owner reply to review | Owner |
+
+### 👑 Super Admin Dashboard
+| Status | Method | Endpoint | Description | Access |
+| :--- | :--- | :--- | :--- | :--- |
+| ⬜ | `GET` | `/admin/stats` | Total revenue / User counts | Super Admin |
+| ⬜ | `GET` | `/admin/venues/pending` | Venues waiting for verification | Super Admin |
+| ⬜ | `PATCH` | `/admin/venues/:id/verify`| Verify venue (Blue tick) | Super Admin |
+| ⬜ | `PATCH` | `/admin/users/:id/ban` | Ban a user/owner | Super Admin |
+
+---
+
+## 🛠️ Recommended DTO Structure
+
+**CreateVenueDto**
+```json
+{
+  "name": "Grand Palace",
+  "address": "Kathmandu",
+  "description": "Best for weddings",
+  "pricePerHour": 5000,
+  "capacity": 500,
+  "type": "BANQUET"
+}
+```
+
+**CreateBookingDto**
+```json
+{
+  "venueId": 1,
+  "eventDate": "2025-12-25",
+  "shift": "EVENING",
+  "guestCount": 300,
+  "packageId": 5
+}
+```
