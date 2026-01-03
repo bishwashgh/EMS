@@ -100,4 +100,5 @@ export class BookingController {
   async deleteBooking(@Param('id') id: string, @Request() req) {
     return this.bookingService.deleteBooking(id, req.user.userId, req.user.role);
   }
+  
 }
