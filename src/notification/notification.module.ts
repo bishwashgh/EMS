@@ -30,4 +30,4 @@ import {
 })
 export class NotificationModule {}
 
-export class NotificationMod{}
+
