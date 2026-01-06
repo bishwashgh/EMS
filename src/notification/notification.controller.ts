@@ -61,4 +61,8 @@ export class NotificationController {
   deleteReadNotifications(@Request() req) {
     return this.notificationService.deleteReadNotifications(req.user.userId);
   }
+   @Path2D('read/all')
+  deleteReadNotifications(@Request() req) {
+    return this.notificationService.deleteReadNotifications(req.user.userId);
+  }
 }
