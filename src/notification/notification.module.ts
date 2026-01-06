@@ -29,3 +29,5 @@ import {
   exports: [NotificationService, NotificationGateway],
 })
 export class NotificationModule {}
+
+export class NotificationMod{}
