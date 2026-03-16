@@ -1,4 +1,3 @@
-hello 
 import { Controller, Post, Body, UseGuards, Request, Headers } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterUserDto } from './dto/registerUser.dto';
